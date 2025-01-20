@@ -6,22 +6,18 @@
     <version>9</version>
   </parent>
 
-  <groupId>kr.motd.maven</groupId>
+  <groupId>org.pdfsam.maven</groupId>
   <artifactId>os-maven-plugin</artifactId>
-  <version>1.7.2-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>maven-plugin</packaging>
 
   <name>os-maven-plugin</name>
-  <url>https://github.com/trustin/os-maven-plugin/</url>
+  <url>https://github.com/torakiki/os-maven-plugin/</url>
+
   <description>
-    A Maven extension/plugin that generates various useful platform-dependent project properties normalized from
+    Fork of https://github.com/trustin/os-maven-plugin A Maven extension/plugin that generates various useful platform-dependent project properties normalized from
     ${os.name} and ${os.arch}.
   </description>
-
-  <organization>
-    <name>Trustin Lee</name>
-    <url>http://t.motd.kr/</url>
-  </organization>
 
   <licenses>
     <license>
@@ -32,22 +28,11 @@
   <inceptionYear>2014</inceptionYear>
 
   <scm>
-    <url>https://github.com/trustin/os-maven-plugin</url>
-    <connection>scm:git:git://github.com/trustin/os-maven-plugin.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/trustin/os-maven-plugin.git</developerConnection>
+    <url>https://github.com/torakiki/os-maven-plugin</url>
+    <connection>scm:git:git://github.com/torakiki/os-maven-plugin.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/torakiki/os-maven-plugin.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
-
-  <developers>
-    <developer>
-      <id>trustin</id>
-      <name>Trustin Lee</name>
-      <email>t@motd.kr</email>
-      <url>http://t.motd.kr/</url>
-      <organization>Trustin Lee</organization>
-      <organizationUrl>http://t.motd.kr/</organizationUrl>
-    </developer>
-  </developers>
 
   <prerequisites>
     <maven>3.1</maven>
@@ -61,45 +46,67 @@
     <invoker.javaHome>${java.home}</invoker.javaHome>
   </properties>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>pdfsam-ossrh-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>pdfsam-ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.7.0</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>pdfsam-ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>3.5.3</version>
+      <version>3.9.8</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
-      <version>3.5.3</version>
+      <version>3.9.8</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
-      <version>3.5.1</version>
+      <version>3.12.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>3.1.0</version>
+      <version>3.5.1</version>
     </dependency>
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
       <version>3.0.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse</groupId>
-      <artifactId>ui</artifactId>
-      <version>3.3.0-I20070614-0800</version>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.eclipse</groupId>
-          <artifactId>swt</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -109,11 +116,12 @@
     </dependency>
   </dependencies>
 
+
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.13.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -124,7 +132,7 @@
       <plugin>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-component-metadata</artifactId>
-        <version>1.7.1</version>
+        <version>2.1.1</version>
         <executions>
           <execution>
             <goals>
@@ -135,7 +143,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.13.1</version>
         <configuration>
           <goalPrefix>os</goalPrefix>
           <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
@@ -179,15 +187,14 @@
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.4.2</version>
         <configuration>
           <archive>
             <manifestEntries>
               <Bundle-ManifestVersion>2</Bundle-ManifestVersion>
               <Bundle-Name>os-maven-plugin</Bundle-Name>
-              <Bundle-SymbolicName>kr.motd.maven.os;singleton:=true</Bundle-SymbolicName>
+              <Bundle-SymbolicName>org.pdfsam.maven.os;singleton:=true</Bundle-SymbolicName>
               <Bundle-Version>${project.version}</Bundle-Version>
-              <Require-Bundle>org.eclipse.core.runtime,org.eclipse.ui</Require-Bundle>
               <Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
             </manifestEntries>
           </archive>
@@ -196,7 +203,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
-        <version>3.2.2</version>
+        <version>3.6.1</version>
         <configuration>
           <debug>true</debug>
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
