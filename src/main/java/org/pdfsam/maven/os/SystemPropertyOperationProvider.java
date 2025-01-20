@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package kr.motd.maven.os;
+package org.pdfsam.maven.os;
 
 /**
  * Interface exposing system property operations.

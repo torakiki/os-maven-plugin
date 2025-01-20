@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package kr.motd.maven.os;
+package org.pdfsam.maven.os;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
@@ -165,7 +165,7 @@ public abstract class Detector {
             return "linux";
         }
         if (value.startsWith("mac") || value.startsWith("osx")) {
-            return "osx";
+            return "macos";
         }
         if (value.startsWith("freebsd")) {
             return "freebsd";
@@ -192,10 +192,10 @@ public abstract class Detector {
     private static String normalizeArch(String value) {
         value = normalize(value);
         if (value.matches("^(x8664|amd64|ia32e|em64t|x64)$")) {
-            return "x86_64";
+            return "x64";
         }
         if (value.matches("^(x8632|x86|i[3-6]86|ia32|x32)$")) {
-            return "x86_32";
+            return "x32";
         }
         if (value.matches("^(ia64w?|itanium64)$")) {
             return "itanium_64";
@@ -210,10 +210,10 @@ public abstract class Detector {
             return "sparc_64";
         }
         if (value.matches("^(arm|arm32)$")) {
-            return "arm_32";
+            return "arm32";
         }
         if ("aarch64".equals(value)) {
-            return "aarch_64";
+            return "arm64";
         }
         if (value.matches("^(mips|mips32)$")) {
             return "mips_32";

@@ -1,4 +1,4 @@
-package kr.motd.maven.os;
+package org.pdfsam.maven.os;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

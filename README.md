@@ -1,3 +1,6 @@
+## This is a fork of https://github.com/trustin/os-maven-plugin
+It differs from the original plugin in few output strings which are highlighted below
+
 `os-maven-plugin` is a [Maven](http://maven.apache.org/) extension/plugin that generates various useful platform-dependent project properties normalized from `${os.name}` and `${os.arch}`.
 
 `${os.name}` and `${os.arch}` are often subtly different between JVM and operating system versions or they sometimes contain machine-unfriendly characters such as whitespaces.  This plugin tries to remove such fragmentation so that you can determine the current operating system and architecture reliably.
@@ -14,7 +17,7 @@
 * `hpux` - if the value starts with `hpux`
 * `os400` - if the value starts with `os400` and its following character is *not* a digit (e.g. `os4000`)
 * `linux` - if the value starts with `linux`
-* `osx` - if the value starts with `mac` or `osx`
+* ~~`osx`~~ `macos` - if the value starts with `mac` or `osx`
 * `freebsd` - if the value starts with `freebsd`
 * `openbsd` - if the value starts with `openbsd`
 * `netbsd` - if the value starts with `netbsd`
@@ -26,14 +29,14 @@
 
 `os.detected.arch` is set to one of the following values, based on the lower-cased value of the `os.arch` Java system property, whose non-alphanumeric characters are stripped out. e.g. `x86_64` -> `x8664`
 
-* `x86_32` - if the value is one of: `x8632`, `x86`, `i386`, `i486`, `i586`, `i686`, `ia32`, `x32`
-* `x86_64` - if the value is one of: `x8664`, `amd64`, `ia32e`, `em64t`, `x64`
+* ~~`x86_32`~~ `x32` - if the value is one of: `x8632`, `x86`, `i386`, `i486`, `i586`, `i686`, `ia32`, `x32`
+* ~~`x86_64`~~ `x64` - if the value is one of: `x8664`, `amd64`, `ia32e`, `em64t`, `x64`
 * `itanium_32` - if the value is `ia64n`
 * `itanium_64` - if the value is one of: `ia64`, `ia64w`, `itanium64`
 * `sparc_32` - if the value is one of: `sparc`, `sparc32`
 * `sparc_64` - if the value is one of: `sparcv9`, `sparc64`
-* `arm_32` - if the value is one of: `arm`, `arm32`
-* `aarch_64` - if the value is `aarch64`
+* ~~`arm_32`~~ `arm32` - if the value is one of: `arm`, `arm32`
+* ~~`aarch_64`~~ `arm64` - if the value is `aarch64`
 * `mips_32` - if the value is one of: `mips`, `mips32`
 * `mips_64` - if the value is `mips64`
 * `mipsel_32` - if the value is one of: `mipsel`, `mips32el`
@@ -84,9 +87,9 @@ Add the extension to your `pom.xml` like the following:
   <build>
     <extensions>
       <extension>
-        <groupId>kr.motd.maven</groupId>
+        <groupId>org.pdfsam.maven</groupId>
         <artifactId>os-maven-plugin</artifactId>
-        <version>1.7.0</version>
+        <version>0.0.1</version>
       </extension>
     </extensions>
   </build>
@@ -174,9 +177,9 @@ will be automatically appended to the classifier.
   <build>
     <extensions>
       <extension>
-        <groupId>kr.motd.maven</groupId>
+        <groupId>org.pdfsam.maven</groupId>
         <artifactId>os-maven-plugin</artifactId>
-        <version>1.7.0</version>
+        <version>0.0.1</version>
       </extension>
     </extensions>
   </build>
@@ -197,9 +200,9 @@ Alternatively, in some projects it may be possible to add the plugin to the buil
 
 ```xml
 <plugin>
-  <groupId>kr.motd.maven</groupId>
+  <groupId>org.pdfsam.maven</groupId>
   <artifactId>os-maven-plugin</artifactId>
-  <version>1.7.0</version>
+  <version>0.0.1</version>
   <executions>
     <execution>
       <phase>initialize</phase>

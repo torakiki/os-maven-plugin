@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package kr.motd.maven.os;
+package org.pdfsam.maven.os;
 
 import java.io.IOException;
 import java.io.InputStream;
